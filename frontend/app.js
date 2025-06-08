@@ -96,7 +96,7 @@ async function generate() {
       : parseFloat(value);
   });
 
-  const response = await fetch("https://backend-simulador.onrender.com/generate", {
+  const response = await fetch("https://backend-simulator-distributions-api.onrender.com/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ type: dist, params, size })
