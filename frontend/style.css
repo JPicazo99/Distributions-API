@@ -1,0 +1,30 @@
+
+.dark-mode {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+}
+.dark-mode .bg-white {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+.dark-mode .btn-outline-dark {
+  border-color: #e0e0e0;
+  color: #e0e0e0;
+}
+.dark-mode .project-desc,
+.dark-mode .autor {
+  color: #ffffff !important;
+}
+.dark-mode input,
+.dark-mode select {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+  border: 1px solid #444;
+}
+canvas {
+  background-color: #fff;
+  border-radius: 6px;
+}
+.dark-mode canvas {
+  background-color: #1a1a1a;
+}
