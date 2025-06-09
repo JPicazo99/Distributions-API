@@ -105,13 +105,39 @@ async function generate() {
   const data = await response.json();
   const values = data.values.flat();
 
+  let labels = [];
+  let freqs = [];
+
+  if (["exponential", "uniform", "normal"].includes(dist)) {
+  // agrupar por bins (para valores continuos)
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const bins = 20;
+  const step = (max - min) / bins;
+
+  // inicializar contadores
+  freqs = new Array(bins).fill(0);
+  labels = Array.from({ length: bins }, (_, i) => {
+    const start = (min + i * step).toFixed(2);
+    const end = (min + (i + 1) * step).toFixed(2);
+    return `${start}–${end}`;
+  });
+
+  for (let v of values) {
+    const index = Math.min(Math.floor((v - min) / step), bins - 1);
+    freqs[index]++;
+  }
+
+  } else {
+  // lógica original para valores discretos
   const counts = values.reduce((acc, val) => {
     acc[val] = (acc[val] || 0) + 1;
     return acc;
   }, {});
+  labels = Object.keys(counts).sort((a, b) => a - b);
+  freqs = labels.map(l => counts[l]);
+  }
 
-  const labels = Object.keys(counts).sort((a, b) => a - b);
-  const freqs = labels.map(l => counts[l]);
 
   if (chart) chart.destroy();
   const ctx = document.getElementById("chart").getContext("2d");
